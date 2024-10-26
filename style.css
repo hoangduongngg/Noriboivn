@@ -1,0 +1,756 @@
+/* Variables */
+:root {
+    --font-primary: 'Playfair Display', serif;
+    --font-secondary: 'Montserrat', sans-serif;
+    --color-white: #fff;
+    --color-black: #000;
+    --color-gray: #999;
+    --transition-default: 0.3s ease;
+    --container-padding: 60px;
+    --container-padding-mobile: 30px;
+}
+
+/* Base Styles */
+body {
+    font-family: var(--font-secondary);
+    overflow-x: hidden;
+    background-color: var(--color-black);
+    color: var(--color-white);
+}
+
+.container {
+    padding-left: var(--container-padding);
+    padding-right: var(--container-padding);
+}
+
+/* Typography */
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-primary);
+}
+
+p, .section-text, .content-text, .description {
+    font-size: 0.875rem;
+    line-height: 1.8;
+}
+
+/* Header & Navigation */
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    transition: background-color var(--transition-default);
+}
+
+.header.scrolled {
+    background-color: rgba(0, 0, 0, 0.9);
+}
+
+/* Menu Toggle Styles */
+.menu-toggle {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+}
+
+.menu-text {
+    font-family: var(--font-secondary);
+    font-size: 14px;
+    color: var(--color-white);
+    transition: color var(--transition-default);
+}
+
+.hamburger-lines {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    width: 24px;
+}
+
+.line {
+    display: block;
+    width: 24px;
+    height: 1px;
+    background-color: var(--color-white);
+    transition: all var(--transition-default);
+}
+
+/* Menu Active State */
+body.menu-active .hamburger-lines .line1 {
+    transform: translateY(7px) rotate(45deg);
+}
+
+body.menu-active .hamburger-lines .line2 {
+    opacity: 0;
+}
+
+body.menu-active .hamburger-lines .line3 {
+    transform: translateY(-7px) rotate(-45deg);
+}
+
+body.menu-active .menu-text {
+    color: var(--color-black);
+}
+
+body.menu-active .line {
+    background-color: var(--color-black);
+}
+
+/* Language Selector */
+.language-select {
+    position: relative;
+}
+
+.language-current {
+    font-size: 0.875rem;
+    cursor: pointer;
+    color: var(--color-white);
+}
+
+.language-dropdown {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%) translateY(10px);
+    background: var(--color-white);
+    border-radius: 4px;
+    padding: 0.5rem 0;
+    opacity: 0;
+    visibility: hidden;
+    transition: all var(--transition-default);
+    min-width: 120px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.language-select.active .language-dropdown {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(0);
+}
+
+.language-option {
+    display: block;
+    padding: 0.5rem 1rem;
+    color: var(--color-black);
+    text-decoration: none;
+    font-size: 0.875rem;
+    transition: background-color var(--transition-default);
+}
+
+.language-option:hover {
+    background-color: rgba(0,0,0,0.05);
+    text-decoration: none;
+}
+
+/* Menu Overlay */
+.menu-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background: var(--color-white);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.5s ease;
+    z-index: 999;
+}
+
+.menu-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.menu-content {
+    text-align: center;
+}
+
+.menu-item {
+    margin: 1.5rem 0;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.5s ease;
+}
+
+.menu-overlay.active .menu-item {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.menu-overlay.active .menu-item:nth-child(1) { transition-delay: 0.1s; }
+.menu-overlay.active .menu-item:nth-child(2) { transition-delay: 0.2s; }
+.menu-overlay.active .menu-item:nth-child(3) { transition-delay: 0.3s; }
+.menu-overlay.active .menu-item:nth-child(4) { transition-delay: 0.4s; }
+
+.menu-link {
+    font-size: 3rem;
+    color: var(--color-black);
+    font-family: var(--font-primary);
+    text-decoration: none;
+    transition: opacity var(--transition-default);
+}
+
+/* Menu Hover Effects */
+.hover-image {
+    position: fixed;
+    width: 200px;
+    height: 200px;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity var(--transition-default);
+    z-index: 1001;
+    object-fit: cover;
+}
+
+.menu-items:hover .menu-link {
+    opacity: 0.3;
+}
+
+.menu-items:hover .menu-link:hover {
+    opacity: 1;
+}
+
+/* Hero Section */
+.hero {
+    position: relative;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.hero-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+}
+
+.hero-bg::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4));
+}
+
+.hero-video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transform: scale(1.1);
+    animation: slowVideo 0.3s forwards;
+}
+
+.logo {
+    max-width: 300px;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInUp 1s ease forwards 0.5s;
+}
+
+.hero-text {
+    font-size: 1rem;
+    line-height: 1.8;
+    max-width: 800px;
+    margin: 0 auto;
+    letter-spacing: 1px;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInUp 1s ease forwards 0.7s;
+}
+
+.scroll-text {
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    font-size: 0.75rem;
+    letter-spacing: 2px;
+    opacity: 0;
+    animation: fadeIn 1s ease forwards 1s;
+}
+
+/* Footer */
+.footer {
+    background-color: #FAF7F2;
+    color: var(--color-black);
+    padding: 5rem 0;
+}
+
+.footer-title {
+    font-size: 0.875rem;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+}
+
+.footer-text, .footer p {
+    font-size: 0.875rem;
+    line-height: 1.8;
+    color: #333;
+}
+
+.footer-copyright {
+    font-size: 0.75rem;
+    color: var(--color-gray);
+    margin-bottom: 0;
+}
+
+/* Social Links */
+.social-links {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.social-link {
+    color: var(--color-black);
+    text-decoration: none;
+    transition: opacity var(--transition-default);
+    font-family: sans-serif;
+    font-size: 1.2rem;
+    font-weight: 500;
+    line-height: 1;
+}
+
+.social-link:hover {
+    opacity: 0.7;
+    color: var(--color-black);
+    text-decoration: none;
+}
+
+/* Animations */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slowVideo {
+    to { transform: scale(1); }
+}
+
+/* Media Queries */
+@media (max-width: 768px) {
+    .container {
+        padding-left: var(--container-padding-mobile);
+        padding-right: var(--container-padding-mobile);
+    }
+    
+    .menu-link {
+        font-size: 2rem;
+    }
+    
+    .scroll-text {
+        display: none;
+    }
+    
+    p, .section-text, .content-text, .description {
+        font-size: 0.75rem;
+    }
+    
+    .hero-text {
+        font-size: 0.875rem;
+    }
+}
+
+/* Menu Hover Image */
+.hover-image {
+    position: fixed;
+    width: 200px;
+    height: 200px;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: 1051;
+    object-fit: cover;
+    border-radius: 4px; /* Thêm bo góc nhẹ cho ảnh */
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15); /* Thêm shadow nhẹ */
+}
+
+/* Điều chỉnh opacity menu items khi hover */
+.menu-items .menu-link {
+    transition: opacity 0.3s ease;
+}
+
+.menu-items:hover .menu-link {
+    opacity: 0.3;
+}
+
+.menu-items:hover .menu-link:hover {
+    opacity: 1;
+}
+
+/* Menu Hover Image - đảm bảo có những styles này */
+.hover-image {
+    position: fixed;
+    width: 300px; /* Tăng kích thước ảnh lên một chút */
+    height: 300px;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: 9999; /* Đảm bảo ảnh hiện trên cùng */
+    object-fit: cover;
+}
+
+.menu-items .menu-link {
+    position: relative;
+    z-index: 1;
+}
+
+/* Điều chỉnh khoảng cách giữa các menu items */
+.menu-item {
+    margin: 0.5rem 0; /* Giảm margin từ 1.5rem xuống 0.5rem */
+}
+
+.menu-link {
+    font-size: 3rem;
+    color: var(--color-black);
+    font-family: var(--font-primary);
+    text-decoration: none;
+    transition: opacity var(--transition-default);
+    line-height: 1.2; /* Thêm line-height để kiểm soát khoảng cách */
+}
+
+/* Điều chỉnh vị trí của hover image */
+.hover-image {
+    position: fixed;
+    width: 200px;
+    height: 200px;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity var(--transition-default);
+    z-index: 9999;
+    object-fit: cover;
+    transform-origin: center center; /* Đặt điểm gốc transform vào giữa ảnh */
+}
+
+/* Điều chỉnh khoảng cách giữa các menu items */
+.menu-item {
+    margin: 0.5rem 0; /* Giảm margin từ 1.5rem xuống 0.5rem */
+}
+
+.menu-link {
+    font-size: 3rem;
+    color: var(--color-black);
+    font-family: var(--font-primary);
+    text-decoration: none;
+    transition: opacity var(--transition-default);
+    line-height: 1.2; /* Thêm line-height để kiểm soát khoảng cách */
+}
+
+/* Điều chỉnh vị trí của hover image */
+
+.hover-image {
+    position: fixed;
+    width: 200px;
+    height: 200px;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: 9999;
+    object-fit: cover;
+    transform-origin: center center;
+}
+
+/* Cập nhật CSS cho menu links */
+.menu-link {
+    font-size: 3rem;
+    color: var(--color-black);
+    font-family: var(--font-primary);
+    text-decoration: none;
+    transition: all var(--transition-default);
+    line-height: 1.2;
+    position: relative; /* Thêm position relative */
+    z-index: 1; /* Mặc định z-index thấp hơn */
+}
+
+/* Style cho link đang được hover */
+.menu-link.active {
+    z-index: 10000; /* Z-index cao hơn hover image */
+    color: white; /* Màu chữ trắng để nổi trên ảnh */
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3); /* Thêm shadow cho chữ nổi bật */
+}
+
+.hover-image {
+    position: fixed;
+    width: 200px;
+    height: 200px;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: 9999;
+    object-fit: cover;
+    transform-origin: center center;
+}
+
+/* Style cho hover image - đặt z-index thấp hơn chữ */
+.hover-image {
+    position: fixed;
+    width: 200px;
+    height: 200px;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: 9999;
+    object-fit: cover;
+    transform-origin: center center;
+}
+
+/* Style cho menu links */
+.menu-link {
+    font-size: 3rem;
+    color: var(--color-black);
+    font-family: var(--font-primary);
+    text-decoration: none;
+    transition: all var(--transition-default);
+    line-height: 1.2;
+    position: relative;
+}
+
+/* Style cho link đang được hover */
+.menu-link.active {
+    z-index: 10000; /* Z-index cao hơn hover image */
+    color: var(--color-black); /* Giữ màu đen */
+}
+
+.language-current {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.language-current svg {
+    transition: transform 0.3s ease;
+}
+
+.language-select.active .language-current svg {
+    transform: rotate(180deg);
+}
+
+.dropdown-arrow {
+    display: inline-block;
+    margin-left: 4px;
+    transition: transform 0.3s ease;
+}
+
+.language-select.active .dropdown-arrow {
+    transform: rotate(180deg);
+}
+
+.menu-overlay {
+    display: flex;
+    flex-direction: column;
+    padding: 20px 0;
+}
+
+.menu-header {
+    padding: 20px 40px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.menu-header .reservation-btn {
+    color: var(--color-black);
+    border-color: var(--color-black);
+}
+
+.menu-content {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.menu-footer {
+    padding: 20px 0;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.menu-footer .copyright {
+    color: #999;
+    font-size: 0.75rem;
+}
+
+.menu-footer .social-links {
+    display: flex;
+    gap: 1.5rem;
+}
+
+.menu-footer .social-link {
+    color: var(--color-black);
+    text-decoration: none;
+    font-size: 1.2rem;
+}
+.menu-footer {
+    padding: 20px 0;
+    margin-top: 20px;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    width: 100%;
+}
+
+.menu-footer .container {
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 0 60px;
+}
+
+.menu-footer .copyright {
+    color: #999;
+    font-size: 0.75rem;
+    text-align: left;
+    float: left; /* Căn trái cho copyright */
+}
+
+.menu-footer .social-links {
+    float: right; /* Căn phải cho social links */
+    display: flex;
+    gap: 1.5rem;
+}
+
+/* Clear float */
+.menu-footer .container::after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+.menu-footer {
+    width: 100%;
+}
+
+.menu-footer .container {
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 0 60px;
+    display: flex;
+    justify-content: space-between; /* Căn 2 bên */
+    align-items: center;
+}
+
+.menu-footer .social-links {
+    display: flex;
+    gap: 1.5rem;
+    margin-left: auto; /* Đẩy social links sang phải */
+}
+
+/* Loại bỏ float nếu có */
+.menu-footer .copyright,
+.menu-footer .social-links {
+    float: none;
+}
+
+/* Header luôn trong suốt */
+.header {
+    transition: all var(--transition-default);
+    background: transparent !important; /* Loại bỏ background khi scroll */
+}
+
+/* Khi menu active, đổi màu text và button */
+body.menu-active .header {
+    color: var(--color-black);
+}
+
+body.menu-active .reservation-btn {
+    color: var(--color-black);
+    border-color: var(--color-black);
+}
+
+body.menu-active .language-current,
+body.menu-active .menu-text {
+    color: var(--color-black);
+}
+
+body.menu-active .line {
+    background-color: var(--color-black);
+}
+
+/* Hover effect cho reservation button khi menu active */
+body.menu-active .reservation-btn:hover {
+    background-color: var(--color-black);
+    color: var(--color-white);
+}
+
+.michelin-badge {
+    position: absolute;
+    bottom: 2rem;
+    left: 2rem;
+    overflow: hidden;
+}
+
+.michelin-badge .char {
+    display: inline-block;
+    opacity: 0;
+    transform: translateY(100%);
+    animation: fadeUpIn 0.6s cubic-bezier(0.215, 0.61, 0.355, 1) forwards;
+}
+
+@keyframes fadeUpIn {
+    from {
+        opacity: 0;
+        transform: translateY(100%);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+.hero-title {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    font-family: 'Playfair Display', serif;
+    font-weight: 50; /* Giảm độ dày của font */
+    font-size: 2.5rem;
+    line-height: 1.4;
+    z-index: 2;
+    text-transform: uppercase;
+}
+
+/* Import thêm font-weight 200 */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@50&display=swap');
+
+.hero-title .title-line {
+    overflow: hidden;
+}
+
+.hero-title .char {
+    display: inline-block;
+    opacity: 0;
+    transform: translateY(100%);
+    animation: fadeUpIn 0.6s cubic-bezier(0.215, 0.61, 0.355, 1) forwards;
+}
+
+@keyframes fadeUpIn {
+    from {
+        opacity: 0;
+        transform: translateY(100%);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
