@@ -1,7 +1,7 @@
 /* Variables */
 :root {
-    --font-primary: 'Playfair Display', serif;
-    --font-secondary: 'Montserrat', sans-serif;
+    --font-primary: 'Inter', sans-serif;
+    --font-secondary: 'Inter', sans-serif;
     --color-white: #fff;
     --color-black: #000;
     --color-gray: #999;
@@ -9,6 +9,14 @@
     --container-padding: 60px;
     --container-padding-mobile: 30px;
 }
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+/* Áp dụng font Inter làm mặc định toàn trang */
+body {
+  font-family: 'Inter', sans-serif;
+}
+
 
 /* Base Styles */
 body {
