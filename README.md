@@ -1,1 +1,1 @@
-# KINOLAB
+# KINO.LAB
